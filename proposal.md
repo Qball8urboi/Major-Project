@@ -1,16 +1,3 @@
-# Proposal
-
-## Need to have list
-- loaded strings of random challenges
-- gui class
-- user imput
-- good looking web page outline
-
-
-## Nice to have list
-- point system
-- quick 20 second challnges
-- timer class
 
 # Another Proposal
 
@@ -20,6 +7,10 @@
 - story mode
 - durring race choices to determine how well you run 
 - high school career
+- timer class
+- gui class
+- user imput for athlete creation
+- a map 
 
 ## Nice to have
 - work on making choices durring the race effect your race, like odds and stuff
