@@ -15,15 +15,15 @@
 # Another Proposal
 
 ## Need to have
-- pick strong events
-- workouts to get better
+- creating your athlete
+- athlete improvment
 - story mode
 - durring race choices to determine how well you run 
-- high school up until recruitment for college
+- high school career
 
 ## Nice to have
+- work on making choices durring the race effect your race, like odds and stuff
 - maybe graphics of some sort
 - a shop
-- more varirity 
-- road to olympics
+- road to olympics / varsity running
 
