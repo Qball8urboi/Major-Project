@@ -10,7 +10,7 @@
 - timer class
 - gui class
 - user imput for athlete creation
-- a map 
+- a map maybe
 
 ## Nice to have
 - work on making choices durring the race effect your race, like odds and stuff
