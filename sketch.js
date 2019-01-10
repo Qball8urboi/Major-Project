@@ -51,16 +51,60 @@ class GuiButton {
     }
 }
   
-  
+
+class Runner {
+    constructor(graphics){
+        this.x=0;
+        this.y = height;
+        this.dx100 =12;
+        this.dx200 = 6;
+        this.counter=0;
+        this.raceCounter=0;
+        this.graphics= graphics;
+        
+
+    }
+    running(){
+        if(this.counter===10){
+            this.counter = 0;
+        }  
+        
+        image(this.graphics[this.counter], this.x, this.y - this.graphics[this.counter].height/4, this.graphics[this.counter].width/4, this.graphics[this.counter].height/4);
+        
+    }
+    clicked(race){
+        if(race===100){
+            if(this.raceCounter<=100){
+                if(key==="a"||key==="d"){
+                    this.counter = this.counter+1;
+                    this.raceCounter = this.raceCounter+1;
+                    this.x += this.dx100;
+                }
+            }
+        }
+        if(race===200){
+            if(this.raceCounter<=200){
+                if(key==="a"||key==="d"){
+                    this.counter = this.counter+1;
+                    this.raceCounter = this.raceCounter+1;
+                    this.x += this.dx200;
+                }
+            }
+        }
+
+    }
+}
 
 
 
 let margin = 210; // margin is just the distance between the centers of the flags in the falg selection screen
 let country;
 let countrySelection = false;
-let characterMaker = false;
+
 let input, button, greeting;
 let name;
+let characterName = true;
+let runningGrphics = [];
 
 function preload() {
     //loading flag icons
@@ -69,14 +113,40 @@ function preload() {
     eritreaFlag = loadImage("assets/Eritrea Flag.png");
     kenyaFlag = loadImage("assets/Kenya Flag.png");
     greatBritainFlag = loadImage("assets/Brit.png");
+    //loading running graphics
+    positionOne = loadImage("assets/runner0.png");
+    positionTwo = loadImage("assets/runner1.png");
+    positionThree = loadImage("assets/runner2.png");
+    positionFour = loadImage("assets/runner3.png");
+    positionFive = loadImage("assets/runner4.png");
+    positionSix = loadImage("assets/runner5.png");
+    positionSeven = loadImage("assets/runner6.png");
+    positionEight = loadImage("assets/runner7.png");
+    positionNine = loadImage("assets/runner8.png");
+    positionTen = loadImage("assets/runner9.png");
+
 }
 
 function setup() {
     //creating canvas
     createCanvas(windowWidth,windowHeight);
-    if(namePicker){
-        namePicker();
-    }
+
+    //making list for running poistipons
+    runningGrphics = [positionOne, 
+                      positionTwo, 
+                      positionThree, 
+                      positionFour, 
+                      positionFive, 
+                      positionSix, 
+                      positionSeven, 
+                      positionEight, 
+                      positionNine, 
+                      positionTen];
+                    
+                
+    runner = new Runner(runningGrphics);
+
+ 
     
 
     //making button classes for countrys
@@ -91,9 +161,17 @@ function setup() {
 function draw() {
     background(243,84,41);
     //displaying country selection until one is selected
-    if(countrySelection===true){
+    if(countrySelection){
         displayFlagSelection();
     }
+    if(characterName){
+        namePicker();
+    }
+    if(race){
+        running();
+    }
+    
+    
 
     
 }
@@ -165,11 +243,70 @@ function namePicker() {
 function greet() {
     name = input.value();
     input.value('');
-    namePicker = false;
-    background(243,84,41);
+    characterName = false;
     countrySelection = true;
 }
     
 
+let runningGrphics = [];
 
+let race = 100;
+let currentRunningPosition;
+let positionOne, positionTwo, positionThree, positionFour, positionFive, positionSix, positionSeven, positionEight, positionNine, positionTen;
+let counter = 0;
+let raceCounter = 0;
+let currentImage;
     
+
+
+
+
+function preload() {
+   
+    //loading running graphics
+    positionOne = loadImage("assets/runner0.png");
+    positionTwo = loadImage("assets/runner1.png");
+    positionThree = loadImage("assets/runner2.png");
+    positionFour = loadImage("assets/runner3.png");
+    positionFive = loadImage("assets/runner4.png");
+    positionSix = loadImage("assets/runner5.png");
+    positionSeven = loadImage("assets/runner6.png");
+    positionEight = loadImage("assets/runner7.png");
+    positionNine = loadImage("assets/runner8.png");
+    positionTen = loadImage("assets/runner9.png");
+    
+
+}
+
+function setup() {
+    //creating canvas
+    createCanvas(windowWidth,windowHeight);
+    
+    
+    
+
+    //making list for running poistipons
+    runningGrphics = [positionOne, 
+                      positionTwo, 
+                      positionThree, 
+                      positionFour, 
+                      positionFive, 
+                      positionSix, 
+                      positionSeven, 
+                      positionEight, 
+                      positionNine, 
+                      positionTen]
+}
+
+function draw(){
+    background(100);
+}
+
+
+function running(){
+    runner.running();
+}
+
+function keyTyped(){
+    runner.clicked(200);
+}
