@@ -65,7 +65,7 @@ class Runner {
 
     }
     running(){
-        if(this.counter===10){
+        if(this.counter>=10){
             this.counter = 0;
         }  
         
@@ -95,16 +95,43 @@ class Runner {
     }
 }
 
+class Timer {
+    constructor(timeToWait) {
+      this.startTime = millis();
+      this.waitTime = timeToWait;
+    }
+  
+    isDone() {
+      if (millis() >= this.startTime + this.waitTime) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  
+    reset(timeToWait) {
+      this.startTime = millis();
+      this.waitTime = timeToWait;
+    }
+  }
 
 
 let margin = 210; // margin is just the distance between the centers of the flags in the falg selection screen
 let country;
 let countrySelection = false;
-
+let competetion = false;
 let input, button, greeting;
-let name;
-let characterName = true;
+let name = "";
+
 let runningGrphics = [];
+
+let race = 100;
+let currentRunningPosition;
+let positionOne, positionTwo, positionThree, positionFour, positionFive, positionSix, positionSeven, positionEight, positionNine, positionTen;
+let counter = 0;
+let raceCounter = 0;
+let currentImage;
 
 function preload() {
     //loading flag icons
@@ -130,6 +157,8 @@ function preload() {
 function setup() {
     //creating canvas
     createCanvas(windowWidth,windowHeight);
+    namePicker();
+    
 
     //making list for running poistipons
     runningGrphics = [positionOne, 
@@ -164,10 +193,15 @@ function draw() {
     if(countrySelection){
         displayFlagSelection();
     }
-    if(characterName){
-        namePicker();
+    
+    if(name !== ""){
+        input.remove();
+        greeting.remove();
+        button.remove(); 
+
+        
     }
-    if(race){
+    if(competetion){
         running();
     }
     
@@ -205,22 +239,32 @@ function displayFlagSelection() {
     if(canadaButton.selected === true){
         country = "Canada";
         countrySelection = false;
+        competetion = true;
+      
     }
     if(unitedStatesButton.selected === true){
         country = "United States";
         countrySelection = false;
+        competetion = true;
+       
     }
     if(kenyaButton.selected === true){
         country = "Kenya";
         countrySelection = false;
+        competetion = true;
+       
     }
     if(eritreaButton.selected === true){
         country = "Eritrea";
         countrySelection = false;
+        competetion = true;
+      
     }
     if(greatBritainButton.selected === true){
         country = "Great Britain";
         countrySelection = false;
+        competetion = true;
+        
     }
 }
 
@@ -243,70 +287,21 @@ function namePicker() {
 function greet() {
     name = input.value();
     input.value('');
-    characterName = false;
-    countrySelection = true;
+    if(name !== ""){
+        countrySelection = true;
+    }
+    
+    
 }
     
-
-let runningGrphics = [];
-
-let race = 100;
-let currentRunningPosition;
-let positionOne, positionTwo, positionThree, positionFour, positionFive, positionSix, positionSeven, positionEight, positionNine, positionTen;
-let counter = 0;
-let raceCounter = 0;
-let currentImage;
-    
-
-
-
-
-function preload() {
-   
-    //loading running graphics
-    positionOne = loadImage("assets/runner0.png");
-    positionTwo = loadImage("assets/runner1.png");
-    positionThree = loadImage("assets/runner2.png");
-    positionFour = loadImage("assets/runner3.png");
-    positionFive = loadImage("assets/runner4.png");
-    positionSix = loadImage("assets/runner5.png");
-    positionSeven = loadImage("assets/runner6.png");
-    positionEight = loadImage("assets/runner7.png");
-    positionNine = loadImage("assets/runner8.png");
-    positionTen = loadImage("assets/runner9.png");
-    
-
-}
-
-function setup() {
-    //creating canvas
-    createCanvas(windowWidth,windowHeight);
-    
-    
-    
-
-    //making list for running poistipons
-    runningGrphics = [positionOne, 
-                      positionTwo, 
-                      positionThree, 
-                      positionFour, 
-                      positionFive, 
-                      positionSix, 
-                      positionSeven, 
-                      positionEight, 
-                      positionNine, 
-                      positionTen]
-}
-
-function draw(){
-    background(100);
-}
-
 
 function running(){
     runner.running();
 }
 
 function keyTyped(){
-    runner.clicked(200);
+    if(competetion){
+        runner.clicked(200);
+    }
+    
 }
