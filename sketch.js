@@ -79,12 +79,21 @@ class Runner {
             this.counter = 0;
         }  
         //displaying the image
-        image(this.graphics[this.counter], this.x, this.y - this.graphics[this.counter].height/4, this.graphics[this.counter].width/4, this.graphics[this.counter].height/4);
+        image(this.graphics[this.counter], this.x, this.y - this.graphics[this.counter].height/3, this.graphics[this.counter].width/3, this.graphics[this.counter].height/3);
         
     }
+    runningPlayerTwo(){
+        if(this.counter>=10){
+            this.counter = 0;
+        }  
+        //displaying the image
+        tint(255,0,255);
+        image(this.graphics[this.counter], this.x, this.y - 2*(this.graphics[this.counter].height/3), this.graphics[this.counter].width/3, this.graphics[this.counter].height/3);
+        noTint();
+    }
     //logic behind how long the race is, every click of the two buttons is 1 meter
-    clicked(race){
-        if(race===100){
+    clicked(player){
+        if(player === "one"){
             //race counter just counter up until it reaches the distance required
             if(this.raceCounter<=100){
                 if(key==="a"||key==="d"){
@@ -94,9 +103,10 @@ class Runner {
                 }
             }
         }
-        if(race===200){
+        if(player === "two"){
             if(this.raceCounter<=200){
-                if(key==="a"||key==="d"){
+                if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
+                // if(key==="h" || key==="k"){
                     this.counter = this.counter+1;
                     this.raceCounter = this.raceCounter+1;
                     this.x += this.dx200;
@@ -204,6 +214,7 @@ function setup() {
                     
     //creating player one      
     runner = new Runner(runningGrphics);
+    runnerPlayerTwo = new Runner(runningGrphics);
 
  
     
@@ -440,12 +451,14 @@ function welcomeScreen(temp, player){
     
 //function that does the graphics for running
 function running(){
+    runnerPlayerTwo.runningPlayerTwo();
     runner.running();
 }
 //the actual running effects when buttons are clicked
 function keyTyped(){
     if(competetion){
-        runner.clicked(200);
+        runner.clicked("one");
+        runnerPlayerTwo.clicked("two");   
     }
     
 }
