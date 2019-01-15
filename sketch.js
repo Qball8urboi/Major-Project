@@ -63,11 +63,13 @@ class Runner {
         this.x=0;
         this.y = height;
         //dx100 is for the 100 meter race, dx200 is for the 200 metre race
-        this.dx100 =12;
-        this.dx200 = 6;
+        this.dx =12;
+        
         // counter to counter which image i am currently on
         this.counter=0;
+        this.counter2=0;
         this.raceCounter=0;
+        this.racecounter2=0;
         // setting this.graphics to the list of images to make one full running cycle
         this.graphics= graphics;
         
@@ -83,12 +85,12 @@ class Runner {
         
     }
     runningPlayerTwo(){
-        if(this.counter>=10){
-            this.counter = 0;
+        if(this.counter2>=10){
+            this.counter2 = 0;
         }  
         //displaying the image
         tint(255,0,255);
-        image(this.graphics[this.counter], this.x, this.y - 2*(this.graphics[this.counter].height/3), this.graphics[this.counter].width/3, this.graphics[this.counter].height/3);
+        image(this.graphics[this.counter2], this.x, this.y - 2*(this.graphics[this.counter2].height/3), this.graphics[this.counter2].width/3, this.graphics[this.counter2].height/3);
         noTint();
     }
     //logic behind how long the race is, every click of the two buttons is 1 meter
@@ -99,17 +101,17 @@ class Runner {
                 if(key==="a"||key==="d"){
                     this.counter = this.counter+1;
                     this.raceCounter = this.raceCounter+1;
-                    this.x += this.dx100;
+                    this.x += this.dx;
                 }
             }
         }
         if(player === "two"){
             if(this.raceCounter<=200){
-                if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
-                // if(key==="h" || key==="k"){
-                    this.counter = this.counter+1;
-                    this.raceCounter = this.raceCounter+1;
-                    this.x += this.dx200;
+            
+                if(key==="h" || key==="k"){
+                    this.counter2 = this.counter2+1;
+                    this.raceCounter2 = this.raceCounter2+1;
+                    this.x += this.dx;
                 }
             }
         }
