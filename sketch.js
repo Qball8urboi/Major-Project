@@ -64,7 +64,8 @@ class Runner {
         this.y = height;
         //speed
         this.dx = 12;
-        
+        this.winOne = false;
+        this.winTwo = false;
         // counter to count which image i am currently on
         this.counter=0;
         
@@ -75,24 +76,30 @@ class Runner {
         
 
     }
-    running(){
+    running(player){
         //if you get to image number 10, it sends you back to image number 1
         if(this.counter>=10){
             this.counter = 0;
         }  
+        if(player === "two"){
+            tint(255,0,255);
+            image(this.graphics[this.counter], this.x, this.y - 2*(this.graphics[this.counter].height/3), this.graphics[this.counter].width/3, this.graphics[this.counter].height/3);
+        }
         //displaying the image
-        image(this.graphics[this.counter], this.x, this.y - this.graphics[this.counter].height/3, this.graphics[this.counter].width/3, this.graphics[this.counter].height/3);
-        
-    }
-    runningPlayerTwo(){
-        if(this.counter2>=10){
-            this.counter2 = 0;
-        }  
-        //displaying the image
-        tint(255,0,255);
-        image(this.graphics[this.counter], this.x, this.y - 2*(this.graphics[this.counter].height/3), this.graphics[this.counter].width/3, this.graphics[this.counter].height/3);
+        if(player === "one"){
+            image(this.graphics[this.counter], this.x, this.y - this.graphics[this.counter].height/3, this.graphics[this.counter].width/3, this.graphics[this.counter].height/3);
+        }
         noTint();
     }
+    // runningPlayerTwo(){
+    //     if(this.counter>=10){
+    //         this.counter = 0;
+    //     }  
+    //     //displaying the image
+    //     tint(255,0,255);
+    //     image(this.graphics[this.counter], this.x, this.y - 2*(this.graphics[this.counter].height/3), this.graphics[this.counter].width/3, this.graphics[this.counter].height/3);
+    //     noTint();
+    //}
     //logic behind how long the race is, every click of the two buttons is 1 meter
     clicked(player){
         if(player === "one"){
@@ -104,18 +111,25 @@ class Runner {
                     this.x += this.dx;
                 }
             }
+            else if(this.raceCounter >=100 && this.winOne === false){
+                this.winTwo = true;
+            }
         }
         if(player === "two"){
-            if(this.raceCounter2<=100){
+            if(this.raceCounter<=100){
                 if(key==="h" || key==="k"){
                     this.counter = this.counter + 1;
                     this.raceCounter = this.raceCounter + 1;
                     this.x += this.dx;
                 }
             }
+            else if (this.raceCounter >=100 && this.winTwo === false){
+                this.winOne = true;
+            }
         }
 
     }
+
 }
 
 //timer class to time both players in the race
@@ -452,8 +466,22 @@ function welcomeScreen(temp, player){
     
 //function that does the graphics for running
 function running(){
-    runnerPlayerTwo.runningPlayerTwo();
-    runner.running();
+    runnerPlayerTwo.running("two");
+    runner.running("one");
+    if(runner.winOne){
+        textAlign(CENTER);
+        fill(255);
+        textSize(50)
+        textFont('Georgia');
+        text(name + " wins!", width/2, 150);
+    }
+    else if(runnerPlayerTwo.winTwo){
+        textAlign(CENTER);
+        fill(255);
+        textSize(50)
+        textFont('Georgia');
+        text(nameTwo + " wins!", width/2, 150);
+    }
 }
 //the actual running effects when buttons are clicked
 function keyTyped(){
