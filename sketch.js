@@ -91,40 +91,32 @@ class Runner {
         }
         noTint();
     }
-    // runningPlayerTwo(){
-    //     if(this.counter>=10){
-    //         this.counter = 0;
-    //     }  
-    //     //displaying the image
-    //     tint(255,0,255);
-    //     image(this.graphics[this.counter], this.x, this.y - 2*(this.graphics[this.counter].height/3), this.graphics[this.counter].width/3, this.graphics[this.counter].height/3);
-    //     noTint();
-    //}
+
     //logic behind how long the race is, every click of the two buttons is 1 meter
     clicked(player){
         if(player === "one"){
             //race counter just counter up until it reaches the distance required
-            if(this.raceCounter<=100){
+            if(this.raceCounter<100){
                 if(key==="a"||key==="d"){
                     this.counter = this.counter+1;
                     this.raceCounter = this.raceCounter+1;
                     this.x += this.dx;
                 }
             }
-            else if(this.raceCounter >=100 && this.winOne === false){
-                this.winTwo = true;
+            else if(this.raceCounter >=100 && this.winTwo === false){
+                this.winOne = true;
             }
         }
         if(player === "two"){
-            if(this.raceCounter<=100){
+            if(this.raceCounter<100){
                 if(key==="h" || key==="k"){
                     this.counter = this.counter + 1;
                     this.raceCounter = this.raceCounter + 1;
                     this.x += this.dx;
                 }
             }
-            else if (this.raceCounter >=100 && this.winTwo === false){
-                this.winOne = true;
+            else if (this.raceCounter >=100 && this.winOne === false){
+                this.winTwo = true;
             }
         }
 
@@ -166,6 +158,7 @@ let welcome = false;
 let startingScreen = true;
 let playerOne = false; 
 let playerTwo = false;
+let winner = false;
 
 //use input things, some fro player 1 and some for player 2
 let input, button, greeting;
@@ -232,8 +225,6 @@ function setup() {
     runnerPlayerTwo = new Runner(runningGrphics);
 
  
-    
-
     //making button classes for countrys
     canadaButton = new GuiButton(canadaFlag, width/2, height/2);
     unitedStatesButton = new GuiButton(unitedStatesFlag, width/2 + margin, height/2);
@@ -293,6 +284,14 @@ function draw() {
         fill(0);
         text("Player Two Selection", 20, height - 20);
     }
+    // if(winner){
+    //     if(keyIsDown(32)){
+    //         competetion = false;
+    //         playerOne =true;
+    //         countrySelection = true;
+    //     }
+        
+    // }
 }
 
 //setting up some visuals for the flag selection screen :)
@@ -470,24 +469,34 @@ function running(){
     runner.running("one");
     if(runner.winOne){
         textAlign(CENTER);
-        fill(255);
-        textSize(50)
+        fill(0);
+        textSize(150)
         textFont('Georgia');
-        text(name + " wins!", width/2, 150);
+        text(name + " wins!", width/2, 250);
+        textSize(50);
+        text("CLICK REFRESH TO PLAY AGAIN", width/2,600);
+        
+        // winner=true;
     }
     else if(runnerPlayerTwo.winTwo){
         textAlign(CENTER);
-        fill(255);
-        textSize(50)
+        fill(0);
+        textSize(150)
         textFont('Georgia');
-        text(nameTwo + " wins!", width/2, 150);
+        text(nameTwo + " wins!", width/2, 250);
+        textSize(50);
+        text("CLICK REFRESH TO PLAY AGAIN", width/2,600);
+        
+        // winner=true;   
     }
 }
 //the actual running effects when buttons are clicked
+
+
+
 function keyTyped(){
     if(competetion){
         runner.clicked("one");
         runnerPlayerTwo.clicked("two");   
     }
-    
 }

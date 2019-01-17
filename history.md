@@ -14,3 +14,10 @@ jan 13th:
 made opening screen
 made the two player selection portion
 made some visuals look better
+
+
+jan 17th
+finished winning and losing logic
+no restart button yet, in progress,
+two runners that work, differnet controls
+timer class yet to be built
